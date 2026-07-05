@@ -1,3 +1,3 @@
-my_age="41"
-my_age="44"
+my_age= 41
+my_age: int = 44
 print(my_age)
