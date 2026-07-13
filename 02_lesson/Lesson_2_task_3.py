@@ -1,4 +1,7 @@
-def circle_square(side):
-    return side ** 2
+import math
+
+
+def square(side):
+    return math.ceil(side ** 2)
 
 
