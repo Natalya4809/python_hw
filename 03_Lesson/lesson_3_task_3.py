@@ -1,5 +1,3 @@
-from sys import base_prefix
-
 from address import Address
 from mailing import Mailing
 
