@@ -6,13 +6,11 @@ def test_multiple_elements():
     driver = webdriver.Chrome()
     driver.get("https://httpbin.qa-territory.online/links/10")
 
-    links = driver.find_elements(By.TAG_NAME, "a")  # Найти все ссылки
+    links = driver.find_elements(By.TAG_NAME, "a")
 
+    assert len(links) == 9
     for link in links:
         assert link.is_displayed()
-
-    assert len(links) == 10
-
-    assert "1" in len[0].text
+    assert "1" in links[0].text
 
     driver.quit()

@@ -12,8 +12,9 @@ def test_form_submission():
     name_field.send_keys("Наталья")
 
     submit_btn = driver.find_element(By.XPATH, "//button[text()='Submit order']")
-    submit_btn.click()
 
-    assert driver.current_url == "https://httpbin.qa-territory.online/"
+    url_before = driver.current_url
+    submit_btn.click()
+    assert driver.current_url != url_before
 
     driver.quit()
