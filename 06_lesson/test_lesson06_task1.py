@@ -10,10 +10,11 @@ def test_dynamic_loading():
     driver.get("https://the-internet.herokuapp.com/dynamic_loading/2")
 
     # 2. Найдите и нажмите на кнопку "Start"
-    start_button = WebDriverWait(driver, 20).intil(
-    EC.element_to_be_clickable((By. CSS_SELECTOR, "start_button"))
+    start_button = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable(
+            (By.CSS_SELECTOR, "#start button")
+        )
     )
-    start_button.click()
 
     # 3. Дождитесь появления текста "Hello World!"
     WebDriverWait(driver, 10).until(
