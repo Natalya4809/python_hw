@@ -13,7 +13,6 @@ def driver():
 
 def test_calculator(driver):
     calc_page = CalculatorPage(driver, "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
-    calc_page.open()
     calc_page.set_delay()
     calc_page.enter_expression()
     calc_page.get_result()
