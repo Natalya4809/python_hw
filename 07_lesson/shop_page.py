@@ -3,13 +3,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def __init__(self, driver, url):
-    self.driver = driver
-    self.url = url
-    self.wait = WebDriverWait(self.driver, 10)
-
-
-
 class ShopPage:
 
     LOGIN_INPUT = (By.CSS_SELECTOR, "#user-name")
@@ -29,10 +22,8 @@ class ShopPage:
         self.wait = WebDriverWait(self.driver, 10)
         self.driver.get(self.url)
 
-
     def open(self):
-        self.driver.get(
-            "https://www.saucedemo.com/checkout-step-one.html")
+        self.driver.get(self.url)
 
 
     def authorization (self):
