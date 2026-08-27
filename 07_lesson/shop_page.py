@@ -64,13 +64,6 @@ class CartPage:
     TOTAL_VALUE = (By.CLASS_NAME, "summary_total_label")
 
 
-    def __init__(self, driver, url):
-        self.driver = driver
-        self.url = url
-        self.wait = WebDriverWait(self.driver, 10)
-        self.driver.get(self.url)
-
-
     def get_shopping_card(self):
         self.wait.until(
             EC.presence_of_element_located(self.SHOPPING_CART_BUTTON)

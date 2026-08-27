@@ -13,10 +13,10 @@ def driver():
 
 
 def test_shop(driver):
-    ShopPage(driver, "https://www.saucedemo.com/")
-    ShopPage.open()
-    ShopPage.authorization()
-    ShopPage.get_add_product()
+    shop_page = ShopPage(driver, "https://www.saucedemo.com/")
+    shop_page.open()
+    shop_page.authorization()
+    shop_page.get_add_product()
     shop_page = CartPage(driver, "https://www.saucedemo.com/")
     shop_page.get_shopping_card()
     shop_page.get_checkout()
