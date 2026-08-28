@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
-from pages.shop_page import ShopPage
-from pages.shop_page import CartPage
+from shop_page import ShopPage
+from shop_page import CartPage
 
 
 @pytest.fixture()
