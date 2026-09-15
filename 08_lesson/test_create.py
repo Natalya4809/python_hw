@@ -1,0 +1,33 @@
+import requests
+
+#635abc90-05da-49dc-ad09-476cf495f7a1
+
+key = "tSSlM1Dt26-XSpdhOBdQOwWenXXorQaUeUanW9Nv4cXx-QNVCS0TCI2uS9Sr2kQl"
+
+base_url = "https://ru.yougile.com/api-v2"
+main_heders = {
+            'Authorization': f'Bearer {key}',
+            'Content-Type': 'application/json'
+        }
+
+
+def test_create():
+    body = {"title": "ГосУслуги"}
+    responses = requests.post(f"{base_url}/projects", headers=main_heders, json=body)
+    assert responses.status_code == 201
+    responses_body = responses.json()
+    id = responses_body["id"]
+    #запрашиваем по id
+    responses = requests.get(f"{base_url}/projects/{id}",
+        headers=main_heders)
+    assert responses.status_code == 200
+    responses_body = responses.json()
+    title = responses_body["title"]
+    assert title == body["title"]
+
+
+def test_create_negative():
+    body = {"title": ""}
+    responses = requests.post(f"{base_url}/projects",
+        headers=main_heders, json=body)
+    assert responses.status_code == 400
