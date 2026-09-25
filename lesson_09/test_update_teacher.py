@@ -1,27 +1,51 @@
-from sqlalchemy import create_engine
-from sqlalchemy.sql import text
+import os
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+
+load_dotenv()
+
+db_connection_string = os.getenv("DATABASE_URL")
+if not db_connection_string:
+    raise RuntimeError("Не найдена переменная DATABASE_URL в .env")
+
+db = create_engine(db_connection_string)
+
 
 def test_update_teacher():
     email = "vika1234@gmail.ru"
+    teacher_id_val = 34993
 
-#добавляю учителя
-insert_sql = text("INSERT INTO teacher (email) VALUES (:email)")
-    conn.execute(insert_sql, {"email": email})
-    conn.commit()
+    # добавляю учителя
+    with db.connect() as conn:
+        conn.execute(
+            text(
+                "INSERT INTO teacher (teacher_id, email) VALUES (:teacher_id, :email)"
+            ),
+            {"teacher_id": teacher_id_val, "email": email},
+        )
 
-#вношу изменения
-sql = text("UPDATE teacher_id SET description = :descr WHERE email = :email")
-    conn.execute(sql, {"descr": 'New descr', "email": email})
+        # ищу по email
 
-    transaction.commit()
-    conn.close()
+        row = conn.execute(
+            text("SELECT teacher_id, email FROM teacher WHERE email = :email"),
+            {"email": email},
+        ).fetchone()
 
-#удаляю учителя
-delete_sql = text("DELETE FROM teacher WHERE teacher_id = :id")
-    conn.execute(delete_sql, {"id": 34993})
-    conn.commit()
+        assert row is not None, "Учитель не добавился — строка не найдена"
 
-    conn.close()
+        assert row[1] == email
 
+        # Вносим изменения
+        conn.execute(
+            text(
+                "UPDATE teacher SET email = :new_email WHERE teacher_id = :teacher_id"
+            ),
+            {"new_email": "vikanew@example.com", "teacher_id": teacher_id_val},
+        )
 
+        # удаляем учителя
 
+        conn.execute(
+            text("DELETE FROM teacher WHERE teacher_id = :teacher_id"),
+            {"teacher_id": teacher_id_val},
+        )
